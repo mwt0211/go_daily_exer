@@ -5,10 +5,12 @@ import "fmt"
 func main() {
 	//initSum(5, 8)
 
-
+	
 	intSum1()
 	intSum1(22)
 	intSum1(25, 80, 50, 100)
+	x,y:=calc(19, 5, 6, 8,9)
+	fmt.Println(x,y)
 }
 func initSum(x int, y int) int {
 	sum := x + y
@@ -27,4 +29,18 @@ func intSum1(x ...int) int {
 	fmt.Println(sum)
 	return sum
 
+}
+func calc(a int, y ...int) (sum, sub int) {
+	sum = a
+	for _, v := range y {
+		sum = sum + v
+	}
+	fmt.Printf("和为:%d\n", sum)
+	sub = a
+	for _, v := range y {
+		sub = sub - v
+
+	}
+	fmt.Printf("差为:%d\n", sub)
+	return sum, sub
 }
