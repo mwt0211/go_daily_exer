@@ -1,0 +1,57 @@
+// 指定的当前proto语法的版本，有2和3
+syntax = "proto3";
+package person;
+//option go_package = "path;name"; ath 表示生成的go文件的存放地址，会自动生成目录的
+//option go_package = "包路径(从mod下开始写);别名"; ath 表示生成的go文件的存放地址，会自动生成目录的
+// name 表示生成的go文件所属的包名
+option go_package="mwt.com/go_daily_exer/GRPC/proto/person;person";
+// 导入其他proto,以build.bat为根路径,书写其内容
+import "home/home.proto";
+message PersonRequest{
+  string  name=1;
+  int64 age=2;
+  enum SEX{
+    option allow_alias = true ;//允许出现相同的标记
+    //枚举标记需从0开始
+    MAN=0;
+    BOY=0;
+    WOMAN=1;
+    GIRL=1;
+    OTHER=2;
+  }
+  SEX sex=3;
+  repeated string addresses=4;//声明切片
+  map<string,string> map_test=5;
+  home.Homefamily i_Home=6;
+}
+message PersonResponse{
+  string  name=1;
+  int64 age=2;
+  enum SEX{
+    option allow_alias = true ;//允许出现相同的标记
+    //枚举标记需从0开始
+    MAN=0;
+    BOY=0;
+    WOMAN=1;
+    GIRL=1;
+    OTHER=2;
+  }
+  SEX sex=3;
+  repeated string addresses=4;//声明切片
+
+}
+/*
+message Home{
+  repeated Person persons=1;//嵌套
+  message Vistors{
+    string name=1;
+    string phone=2;
+  }//只是单纯地定义
+    Vistors v=3;//使用定义的V
+}*/
+service PersonService{
+  rpc searchPerson(person.PersonRequest)returns(person.PersonResponse);//即刻响应
+  rpc searchPersonReqStream(stream person.PersonRequest)returns(person.PersonResponse);//请求为stream
+  rpc searchPersonResStream(person.PersonRequest)returns(stream person.PersonResponse);//响应为stream
+  rpc searchPersonBothStream(stream person.PersonRequest)returns(stream person.PersonResponse);//响应为stream &&请求为stream
+}
