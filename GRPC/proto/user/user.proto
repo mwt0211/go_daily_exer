@@ -1,0 +1,26 @@
+// 指定的当前proto语法的版本，有2和3
+syntax = "proto3";
+package user;
+//option go_package = "path;name"; ath 表示生成的go文件的存放地址，会自动生成目录的
+//option go_package = "包路径(从mod下开始写);别名"; ath 表示生成的go文件的存放地址，会自动生成目录的
+// name 表示生成的go文件所属的包名
+option go_package="mwt.com/go_daily_exer/GRPC/proto/user;user";
+import "google/api/annotations.proto";
+message UserRequest{
+  string  name = 1;
+  int64 age = 2;
+  repeated string addresses=3;
+}
+message UserResponse{
+  string  name = 1;
+  int64 age = 2;
+  repeated string addresses=4;//声明切片
+}
+service userService{
+  rpc searchUser(user.UserRequest)returns(user.UserResponse){
+    option(google.api.http) = {
+      post:"/api/user",
+      body:"*"
+    };
+  };//即刻响应
+}
