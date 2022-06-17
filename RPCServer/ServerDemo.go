@@ -29,7 +29,7 @@ func addHandler(w http.ResponseWriter, r *http.Request) {
 	// 业务逻辑
 	ret := add(param.X, param.Y)
 	// 返回响应
-	respBytes, _ := json.Marshal(addResult{Code: 0, Data: ret})
+	respBytes, _ := json.Marshal(addResult{Code: 200, Data: ret})
 	w.Write(respBytes)
 }
 

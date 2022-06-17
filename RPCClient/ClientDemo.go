@@ -27,12 +27,15 @@ func main() {
 		X: 10,
 		Y: 20,
 	}
-	paramBytes, _ := json.Marshal(param)
+	paramBytes, err := json.Marshal(param)
+	if err != nil {
+		fmt.Println("marshal失败", err)
+	}
 	resp, _ := http.Post(url, "application/json", bytes.NewReader(paramBytes))
 	defer resp.Body.Close()
 
 	respBytes, _ := ioutil.ReadAll(resp.Body)
 	var respData addResult
 	json.Unmarshal(respBytes, &respData)
-	fmt.Println(respData.Data) // 30
+	fmt.Println(respData.Data, respData.Code) // 30
 }

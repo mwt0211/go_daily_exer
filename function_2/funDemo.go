@@ -5,12 +5,11 @@ import "fmt"
 func main() {
 	//initSum(5, 8)
 
-	
 	intSum1()
 	intSum1(22)
 	intSum1(25, 80, 50, 100)
-	x,y:=calc(19, 5, 6, 8,9)
-	fmt.Println(x,y)
+	x, y := calc(19, 5, 6, 8, 9)
+	fmt.Println(x, y)
 }
 func initSum(x int, y int) int {
 	sum := x + y
